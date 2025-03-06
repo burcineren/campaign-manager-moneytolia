@@ -1,0 +1,48 @@
+<div class="login-container">
+  <div class="login-card">
+    <h2>Giriş Yap</h2>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="24">Kullanıcı Adı</nz-form-label>
+        <nz-form-control
+          [nzSpan]="24"
+          [nzErrorTip]="'Lütfen kullanıcı adınızı girin.'"
+        >
+          <nz-input-group nzPrefixIcon="user">
+            <input
+              nz-input
+              formControlName="username"
+              placeholder="Kullanıcı adınızı girin"
+            />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzSpan]="24">Şifre</nz-form-label>
+        <nz-form-control [nzSpan]="24" [nzErrorTip]="'Lütfen şifrenizi girin.'">
+          <nz-input-group nzPrefixIcon="lock">
+            <input
+              nz-input
+              type="password"
+              formControlName="password"
+              placeholder="Şifrenizi girin"
+            />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+
+      <div class="login-actions">
+        <button
+          nz-button
+          nzType="primary"
+          [disabled]="loginForm.invalid"
+          nzBlock
+        >
+          Giriş Yap
+        </button>
+        <a routerLink="/forgot-password" class="forgot-link">Şifremi Unuttum</a>
+      </div>
+    </form>
+  </div>
+</div>
