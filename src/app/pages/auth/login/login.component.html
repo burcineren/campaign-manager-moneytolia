@@ -3,16 +3,16 @@
     <h2>Giriş Yap</h2>
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
       <div class="form-group">
-        <label for="username">Kullanıcı Adı</label>
+        <label for="username">Kullanıcı Adı:</label>
         <input
           type="text"
           id="username"
           formControlName="username"
-          placeholder="Kullanıcı adınızı girin"
+          placeholder="Lütfen kullanıcı adını girin."
         />
         @if (loginForm.get('username')?.invalid &&
         loginForm.get('username')?.touched ) {
-        <div class="error-message">Lütfen kullanıcı adınızı girin.</div>
+        <div class="error-message">Lütfen kullanıcı adını girin.</div>
         }
       </div>
 

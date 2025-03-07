@@ -18,28 +18,37 @@ import { tap } from "rxjs";
 @Injectable()
 export class AuthState {
   constructor(private authService: AuthService) { }
+
   @Selector()
-  static isAuthenticated(state: AuthStateModel) {
+  static isAuthenticated(state: AuthStateModel): boolean {
     return state.isAuthenticated;
   }
 
   @Selector()
-  static token(state: AuthStateModel) {
+  static token(state: AuthStateModel): string | null {
     return state.token;
   }
+
   @Action(LoginAction)
   login(ctx: StateContext<AuthStateModel>, action: LoginAction) {
-    const { email, password } = action.payload;
-    return this.authService.login(email, password).pipe(
-      tap((token) => {
-        ctx.patchState({
+    const { username, password } = action.payload;
+    return this.authService.login(username, password).pipe(
+      tap((response) => {
+        const newState: AuthStateModel = {
+          token: response.token,
           isAuthenticated: true
-        });
-        // localStorage.setItem('token', token);
+        };
+        ctx.patchState(newState);
       })
-    )
+    );
   }
 
   @Action(LogoutAction)
-  logout() { }
+  logout(ctx: StateContext<AuthStateModel>) {
+    this.authService.logout();
+    ctx.setState({
+      token: null,
+      isAuthenticated: false
+    });
+  }
 }

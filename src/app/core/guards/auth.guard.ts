@@ -15,7 +15,8 @@ export class AuthGuard implements CanActivate {
     const isAuthenticated = this.store.selectSnapshot(AuthState.isAuthenticated);
 
     if (!isAuthenticated) {
-      this.router.navigate(['/auth/login']);
+      console.warn('Erişim reddedildi! Giriş yapmalısınız.');
+      this.router.navigate(['/login']);
       return false;
     }
 

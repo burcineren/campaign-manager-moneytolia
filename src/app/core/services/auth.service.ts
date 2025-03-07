@@ -1,16 +1,44 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, catchError, map, tap, throwError } from 'rxjs';
 import { AuthStateModel } from '../states/auth-state/auth.type';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  apiUrl: string = 'http://localhost:3000';
+  private readonly apiUrl: string = 'http://localhost:3000';
+
   constructor(private http: HttpClient) { }
 
-  login(email: string, password: string): Observable<AuthStateModel> {
-    return this.http.post<AuthStateModel>(`${this.apiUrl}/login`, { email, password });
+  login(username: string, password: string): Observable<{ token: string }> {
+    return this.http.get<any[]>(`${this.apiUrl}/user?username=${username}&password=${password}`).pipe(
+      map((users) => {
+        if (users.length > 0) {
+          const token = `fake-jwt-token-${users[0].id}`;
+          return { token };
+        } else {
+          throw new Error('Geçersiz isim veya şifre!');
+        }
+      }),
+      tap((response) => {
+        if (response.token) {
+          localStorage.setItem('token', response.token);
+        }
+      }),
+      catchError((error) => {
+        console.error('Giriş başarısız:', error.message);
+        return throwError(() => new Error('Giriş başarısız! Lütfen tekrar deneyin.'));
+      })
+    );
+  }
+
+  getToken(): string | null {
+    return localStorage.getItem('token');
+  }
+
+  logout(): void {
+    localStorage.removeItem('token');
+    console.log('Çıkış yapıldı.');
   }
 }
