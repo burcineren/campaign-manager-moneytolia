@@ -7,8 +7,4 @@ export const HomePageRoutes: Routes = [
     path: '',
     component: HomeComponent,
   },
-  {
-    path: 'campaigns',
-    component: CampaignsComponent
-  }
 ];
