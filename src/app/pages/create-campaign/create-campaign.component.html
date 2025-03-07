@@ -1,1 +1,37 @@
-<p>create-campaign works!</p>
+<div class="login-container">
+  <div class="login-card">
+    <h2>Kampanya Oluştur</h2>
+    <form [formGroup]="campaignForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="title">Kullanıcı Adı:</label>
+        <input
+          type="text"
+          id="title"
+          formControlName="title"
+          placeholder="Lütfen başlığı girin."
+        />
+        @if (campaignForm.get('title')?.invalid &&
+        campaignForm.get('title')?.touched ) {
+        <div class="error-message">Lütfen başlığı girin.</div>
+        }
+      </div>
+
+      <div class="form-group">
+        <label for="description">Açıklama:</label>
+        <textarea
+          id="description"
+          rows="5"
+          formControlName="description"
+          class="form-control"
+          placeholder="Açıklamyı girin..."
+        ></textarea>
+        @if (campaignForm.get('description')?.invalid &&
+        campaignForm.get('description')?.touched ) {
+        <div class="error-message">Lütfen açıklamayı girin.</div>
+        }
+      </div>
+
+      <button type="submit" [disabled]="campaignForm.invalid">Gönder</button>
+    </form>
+  </div>
+</div>

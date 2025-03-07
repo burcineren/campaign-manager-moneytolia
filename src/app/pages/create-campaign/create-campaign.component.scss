@@ -1,0 +1,125 @@
+$primary-color: #1890ff;
+$text-color: #333;
+$background-color: #f0f2f5;
+$card-bg-color: #fff;
+$border-color: #ddd;
+$input-bg-color: #f5f5f5;
+$input-border-color: #ccc;
+$padding: 20px;
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 86vh;
+  background-color: $background-color;
+}
+
+.login-card {
+  background-color: $card-bg-color;
+  padding: $padding * 2;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+
+  h2 {
+    margin-bottom: $padding;
+    color: $text-color;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.form-group {
+  margin-bottom: $padding;
+
+  label {
+    display: block;
+    text-align: left;
+    margin-bottom: 5px;
+    color: darken($text-color, 20%);
+  }
+
+  input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid $input-border-color;
+    border-radius: 5px;
+    background-color: $input-bg-color;
+    transition: border-color 0.3s;
+
+    &:focus {
+      border-color: $primary-color;
+      outline: none;
+    }
+  }
+  textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid $input-border-color;
+    border-radius: 5px;
+    background-color: $input-bg-color;
+    transition: border-color 0.3s;
+  }
+  &:focus {
+    border-color: $primary-color;
+    outline: none;
+  }
+  .error-message {
+    color: #ff4d4f;
+    font-size: 12px;
+    margin-top: 5px;
+    text-align: left;
+  }
+}
+
+button[type="submit"] {
+  background-color: $primary-color;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: darken($primary-color, 10%);
+  }
+
+  &:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+}
+
+.forgot-link {
+  display: block;
+  margin-top: $padding / 2;
+  font-size: 14px;
+  color: $primary-color;
+  text-decoration: none;
+  transition: color 0.3s;
+
+  &:hover {
+    color: darken($primary-color, 10%);
+  }
+}
+
+@media (max-width: 480px) {
+  .login-card {
+    padding: $padding;
+  }
+
+  input {
+    padding: 8px;
+  }
+
+  button[type="submit"] {
+    padding: 8px;
+  }
+}
