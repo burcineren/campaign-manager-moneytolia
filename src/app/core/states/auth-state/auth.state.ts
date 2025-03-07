@@ -1,7 +1,9 @@
-import { Action, Selector, State, } from "@ngxs/store";
+import { Action, Selector, State, StateContext, } from "@ngxs/store";
 import { Injectable } from '@angular/core';
 import { LoginAction, LogoutAction } from "./auth.actions";
 import { AuthStateModel } from "./auth.type";
+import { AuthService } from '../../services/auth.service';
+import { tap } from "rxjs";
 
 
 
@@ -15,7 +17,7 @@ import { AuthStateModel } from "./auth.type";
 
 @Injectable()
 export class AuthState {
-
+  constructor(private authService: AuthService) { }
   @Selector()
   static isAuthenticated(state: AuthStateModel) {
     return state.isAuthenticated;
@@ -26,7 +28,17 @@ export class AuthState {
     return state.token;
   }
   @Action(LoginAction)
-  login() { }
+  login(ctx: StateContext<AuthStateModel>, action: LoginAction) {
+    const { email, password } = action.payload;
+    return this.authService.login(email, password).pipe(
+      tap((token) => {
+        ctx.patchState({
+          isAuthenticated: true
+        });
+        // localStorage.setItem('token', token);
+      })
+    )
+  }
 
   @Action(LogoutAction)
   logout() { }
