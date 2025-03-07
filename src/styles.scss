@@ -8,6 +8,13 @@ $container-width: 1200px;
 $padding: 20px;
 $header-color: #d7dce2;
 
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: $background-color;
+  color: $text-color;
+}
 .container {
   max-width: $container-width;
   margin: 0 auto;
@@ -63,7 +70,7 @@ $header-color: #d7dce2;
 
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
-  width: 90%;
+  width: 100%;
   text-align: left;
 
   .content {
