@@ -8,4 +8,13 @@ import { Component } from '@angular/core';
 })
 export class CampaignsComponent {
 
+  count = 0;
+
+  increase() {
+    this.count++;
+  }
+
+  decrease() {
+    if (this.count > 0) this.count--;
+  }
 }
