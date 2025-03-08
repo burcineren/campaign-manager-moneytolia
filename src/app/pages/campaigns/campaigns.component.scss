@@ -1,9 +1,12 @@
+.mb-10 {
+  margin-bottom: 10px;
+}
 .card {
   background-color: #fff;
   border-radius: 12px;
   box-shadow: 0 2px 26px rgba(0, 0, 0, 0.1);
   padding: 12px;
-  margin: 10px 0;
+  margin: 10px 6px;
   width: 330px;
   display: flex;
   flex-direction: column;
@@ -97,5 +100,124 @@
       font-size: 15px;
       color: #757575;
     }
+  }
+}
+#overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 99;
+}
+
+#campaign-modal {
+  max-width: 500px;
+  width: 101%;
+  height: 44%;
+  border-radius: 10px;
+  background-color: #fff;
+  margin: auto;
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 999;
+
+  .header {
+    border-bottom: 1px solid #eee;
+    height: 30px;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .content {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 30px;
+
+    label {
+      display: block;
+    }
+
+    input {
+      width: 100%;
+      min-height: 40px;
+      border-radius: 6px;
+      padding: 10px;
+      box-sizing: border-box;
+      outline: none;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background-color: #f5f5f5;
+      transition: border-color 0.3s;
+    }
+    textarea {
+      width: 100%;
+      min-height: 40px;
+      border-radius: 6px;
+      padding: 10px;
+      box-sizing: border-box;
+      outline: none;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background-color: #f5f5f5;
+      transition: border-color 0.3s;
+    }
+  }
+
+  .buttons {
+    position: absolute;
+    right: 15px;
+    bottom: 15px;
+    display: flex;
+    gap: 10px;
+
+    button {
+      border: none;
+      height: 50px;
+      min-width: 75px;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+  }
+}
+
+@media (min-width: 1520px) and (max-width: 1760px) {
+  .campaign-item {
+    width: 32.2% !important;
+  }
+}
+
+@media (min-width: 1320px) and (max-width: 1520px) {
+  .campaign-item {
+    width: 32% !important;
+  }
+}
+
+@media (min-width: 1120px) and (max-width: 1320px) {
+  .campaign-item {
+    width: 48.5% !important;
+  }
+}
+
+@media (max-width: 1120px) {
+  #allCampaigns {
+    padding: 30px 10px !important;
+  }
+
+  .campaign-item {
+    width: 100% !important;
+  }
+}
+
+@media (max-width: 670px) {
+  :host {
+    left: 50px;
+    width: calc(100% - 50px);
   }
 }
