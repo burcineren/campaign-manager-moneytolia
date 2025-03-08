@@ -24,6 +24,7 @@ export class AuthService {
       tap((response) => {
         if (response.token) {
           localStorage.setItem('token', response.token);
+          localStorage.setItem('isAuthenticated', 'true');
         }
       }),
       catchError((error) => {
@@ -39,6 +40,7 @@ export class AuthService {
 
   logout(): void {
     localStorage.removeItem('token');
+    localStorage.setItem('isAuthenticated', 'false');
     console.log('Çıkış yapıldı.');
   }
 }

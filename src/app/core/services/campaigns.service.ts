@@ -4,7 +4,7 @@ import { Campaign } from '../types/campaign.model';
 @Injectable({
   providedIn: 'root'
 })
-export class CampaignService {
+export class CampaignsService {
   constructor() { }
 
   campaigns!: Campaign[];

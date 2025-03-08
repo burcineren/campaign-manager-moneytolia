@@ -1,22 +1,26 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { CampaignService } from '../../core/services/campaign.service';
+import { CampaignsService } from '../../core/services/campaigns.service';
 import { Campaign } from '../../core/types/campaign.model';
 
 @Component({
-  selector: 'app-create-campaign',
+  selector: 'create-campaign',
   imports: [ReactiveFormsModule],
   templateUrl: './create-campaign.component.html',
-  styleUrls: ['./create-campaign.component.scss']
+  styleUrls: ['./create-campaign.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+
 })
 export class CreateCampaignComponent {
-  campaignForm!: FormGroup;
+  campaignForm: FormGroup;
   showDialog: boolean = false;
+  message: string = '';
 
   constructor(
     private fb: FormBuilder,
-    private campaignService: CampaignService
+    private campaignsService: CampaignsService,
+    private router: Router
   ) {
     this.campaignForm = this.fb.group({
       title: ['', Validators.required],
@@ -39,11 +43,11 @@ export class CreateCampaignComponent {
         point: 0,
         datePublished: currentDate
       };
-
-      this.campaignService.setCampaigns(campaign);
+      this.campaignsService.setCampaigns(campaign);
       this.clearForm();
+      this.message = 'Kampanya başarılı bir şekilde eklenmiştir!';
       this.showDialog = true;
-
+      this.router.navigate(['campaigns'])
       setTimeout(() => {
         this.showDialog = false;
       }, 2000);

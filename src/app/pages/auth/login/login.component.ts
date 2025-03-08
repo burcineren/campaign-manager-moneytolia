@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Store } from '@ngxs/store';
 import { LoginAction } from '../../../core/states/auth-state/auth.actions';
@@ -9,7 +9,9 @@ import { Router } from '@angular/router';
   selector: 'login',
   imports: [ReactiveFormsModule],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  styleUrl: './login.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+
 })
 export class LoginComponent {
   loginForm: FormGroup;
@@ -29,7 +31,7 @@ export class LoginComponent {
           console.log('Giriş başarılı!');
           const token = localStorage.getItem('token');
           if (token) {
-            this.router.navigate(['/home']).catch(() => this.router.navigate(['/campaigns']));
+            this.router.navigate(['/campaigns'])
           } else {
             console.error('Token alınamadı!');
             this.router.navigate(['/login']);

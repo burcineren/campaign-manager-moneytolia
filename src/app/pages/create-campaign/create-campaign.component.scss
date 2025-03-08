@@ -11,8 +11,6 @@ $padding: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 86vh;
-  background-color: $background-color;
 }
 
 .login-card {
@@ -23,6 +21,7 @@ $padding: 20px;
   width: 100%;
   max-width: 400px;
   text-align: center;
+  margin-top: 30px;
 
   h2 {
     margin-bottom: $padding;
@@ -46,7 +45,7 @@ $padding: 20px;
   }
 
   input {
-    width: 100%;
+    width: 95%;
     padding: 10px;
     border: 1px solid $input-border-color;
     border-radius: 5px;
@@ -59,7 +58,7 @@ $padding: 20px;
     }
   }
   textarea {
-    width: 100%;
+    width: 95%;
     padding: 10px;
     border: 1px solid $input-border-color;
     border-radius: 5px;

@@ -10,6 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideHttpClient } from '@angular/common/http';
 import { AuthState } from './core/states/auth-state/auth.state';
+import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
 
 registerLocaleData(en);
 
@@ -28,8 +29,9 @@ export const appConfig: ApplicationConfig = {
             injectContainerState: false,
           },
         }
-      ),
+      )
     ),
+    importProvidersFrom(),
     provideHttpClient()
   ]
 };

@@ -1,20 +1,17 @@
-import { Action, Selector, State, StateContext, } from "@ngxs/store";
+import { Action, Selector, State, StateContext } from "@ngxs/store";
 import { Injectable } from '@angular/core';
 import { LoginAction, LogoutAction } from "./auth.actions";
 import { AuthStateModel } from "./auth.type";
 import { AuthService } from '../../services/auth.service';
 import { tap } from "rxjs";
 
-
-
 @State<AuthStateModel>({
   name: 'auth',
   defaults: {
-    token: null,
-    isAuthenticated: false
+    token: localStorage.getItem('token'),
+    isAuthenticated: localStorage.getItem('isAuthenticated') === 'true'
   }
 })
-
 @Injectable()
 export class AuthState {
   constructor(private authService: AuthService) { }
