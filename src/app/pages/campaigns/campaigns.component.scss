@@ -1,6 +1,15 @@
 .mb-10 {
   margin-bottom: 10px;
 }
+.alert-primary {
+  background-color: #34c38fa6;
+  color: #fff;
+  padding: 18px 15px;
+  border-radius: 5px;
+  font-size: 14px;
+  margin-top: 15px;
+  margin-right: 10px;
+}
 .card {
   background-color: #fff;
   border-radius: 12px;
@@ -28,7 +37,7 @@
       gap: 8px;
 
       .btn {
-        padding: 5px 10px;
+        padding: 10px 10px;
         border: none;
         border-radius: 5px;
         cursor: pointer;

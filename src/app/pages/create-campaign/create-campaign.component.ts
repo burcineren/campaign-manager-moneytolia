@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Router } from '@angular/router';
 import { CampaignsService } from '../../core/services/campaigns.service';
 import { Campaign } from '../../core/types/campaign.model';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'create-campaign',
@@ -20,7 +21,8 @@ export class CreateCampaignComponent {
   constructor(
     private fb: FormBuilder,
     private campaignsService: CampaignsService,
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService
   ) {
     this.campaignForm = this.fb.group({
       title: ['', Validators.required],
@@ -46,6 +48,7 @@ export class CreateCampaignComponent {
       this.campaignsService.setCampaigns(campaign);
       this.clearForm();
       this.message = 'Kampanya başarılı bir şekilde eklenmiştir!';
+      this.toastr.success('Kampanya başarılı bir şekilde eklenmiştir!!', 'Kampanya');
       this.showDialog = true;
       this.router.navigate(['campaigns'])
       setTimeout(() => {

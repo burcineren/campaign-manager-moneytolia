@@ -11,6 +11,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { provideHttpClient } from '@angular/common/http';
 import { AuthState } from './core/states/auth-state/auth.state';
 import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
+import { ToastrModule } from 'ngx-toastr';
 
 registerLocaleData(en);
 
@@ -20,6 +21,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     importProvidersFrom(FormsModule),
     provideAnimationsAsync(),
+    importProvidersFrom(ToastrModule.forRoot()),
     importProvidersFrom(
       NgxsModule.forRoot(
         [AuthState],
