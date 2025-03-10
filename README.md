@@ -2,6 +2,10 @@
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.1.
 
+## Demo
+
+You can view a live demo of the project here: [Demo Link]((https://campaign-manager-moneytolia.vercel.app/login))
+
 ## Credentials
 
 For testing purposes, you can use the following credentials to access the application:
