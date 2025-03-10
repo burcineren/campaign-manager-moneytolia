@@ -4,7 +4,7 @@ This project was generated using [Angular CLI](https://github.com/angular/angula
 
 ## Demo
 
-You can view a live demo of the project here: [Demo Link]((https://campaign-manager-moneytolia.vercel.app/login))
+You can view a live demo of the project here: [Demo Link](https://campaign-manager-moneytolia.vercel.app/login)
 
 ## Credentials
 
