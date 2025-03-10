@@ -1,35 +1,30 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError, map, tap, throwError } from 'rxjs';
+import { Observable, catchError, map, of, tap, throwError } from 'rxjs';
 import { AuthStateModel } from '../states/auth-state/auth.type';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private readonly apiUrl: string = 'http://localhost:3000';
 
+  private readonly USER = {
+    username: 'moneytolia',
+    password: '12345',
+  };
   constructor(private http: HttpClient) { }
 
-  login(username: string, password: string): Observable<{ token: string }> {
-    return this.http.get<any[]>(`${this.apiUrl}/user?username=${username}&password=${password}`).pipe(
-      map((users) => {
-        if (users.length > 0) {
-          const token = `fake-jwt-token-${users[0].id}`;
-          return { token };
-        } else {
-          throw new Error('Geçersiz isim veya şifre!');
+  login(username: string, password: string): Observable<boolean> {
+    const isValid = (username === this.USER.username && password === this.USER.password);
+    if (isValid) {
+      localStorage.setItem('isAuthenticated', 'true');
+    }
+    return of(isValid).pipe(
+      tap(success => {
+        if (!success) {
+          localStorage.setItem('isAuthenticated', 'false');
+          console.error('Giriş başarısız!');
         }
-      }),
-      tap((response) => {
-        if (response.token) {
-          localStorage.setItem('token', response.token);
-          localStorage.setItem('isAuthenticated', 'true');
-        }
-      }),
-      catchError((error) => {
-        console.error('Giriş başarısız:', error.message);
-        return throwError(() => new Error('Giriş başarısız! Lütfen tekrar deneyin.'));
       })
     );
   }

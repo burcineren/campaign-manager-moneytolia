@@ -17,7 +17,6 @@ export class HeaderComponent {
   logout(): void {
     this.store.dispatch(new LogoutAction()).subscribe(() => {
       console.log('Çıkış yapıldı!');
-      localStorage.removeItem('token');
       this.router.navigate(['/login']);
     });
   }

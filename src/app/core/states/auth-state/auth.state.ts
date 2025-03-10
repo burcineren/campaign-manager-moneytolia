@@ -8,7 +8,6 @@ import { tap } from "rxjs";
 @State<AuthStateModel>({
   name: 'auth',
   defaults: {
-    token: localStorage.getItem('token'),
     isAuthenticated: localStorage.getItem('isAuthenticated') === 'true'
   }
 })
@@ -21,21 +20,12 @@ export class AuthState {
     return state.isAuthenticated;
   }
 
-  @Selector()
-  static token(state: AuthStateModel): string | null {
-    return state.token;
-  }
-
   @Action(LoginAction)
   login(ctx: StateContext<AuthStateModel>, action: LoginAction) {
     const { username, password } = action.payload;
     return this.authService.login(username, password).pipe(
-      tap((response) => {
-        const newState: AuthStateModel = {
-          token: response.token,
-          isAuthenticated: true
-        };
-        ctx.patchState(newState);
+      tap(isAuthenticated => {
+        ctx.patchState({ isAuthenticated });
       })
     );
   }
@@ -44,7 +34,6 @@ export class AuthState {
   logout(ctx: StateContext<AuthStateModel>) {
     this.authService.logout();
     ctx.setState({
-      token: null,
       isAuthenticated: false
     });
   }

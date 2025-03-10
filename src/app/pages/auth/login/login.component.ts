@@ -29,8 +29,8 @@ export class LoginComponent {
       this.store.dispatch(new LoginAction({ username, password })).subscribe({
         next: () => {
           console.log('Giriş başarılı!');
-          const token = localStorage.getItem('token');
-          if (token) {
+          const isAuthenticated = localStorage.getItem('isAuthenticated');
+          if (isAuthenticated) {
             this.router.navigate(['/campaigns'])
           } else {
             console.error('Token alınamadı!');
