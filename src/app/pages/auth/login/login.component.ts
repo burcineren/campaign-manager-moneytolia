@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Store } from '@ngxs/store';
 import { LoginAction } from '../../../core/states/auth-state/auth.actions';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -16,7 +17,7 @@ import { Router } from '@angular/router';
 export class LoginComponent {
   loginForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private store: Store, private router: Router) {
+  constructor(private fb: FormBuilder, private store: Store, private router: Router, private toastr: ToastrService) {
     this.loginForm = this.fb.group({
       username: ['', Validators.required],
       password: ['', Validators.required]
@@ -29,15 +30,13 @@ export class LoginComponent {
       this.store.dispatch(new LoginAction({ username, password })).subscribe({
         next: () => {
           console.log('Giriş başarılı!');
-          const isAuthenticated = localStorage.getItem('isAuthenticated');
-          if (isAuthenticated) {
-            this.router.navigate(['/campaigns'])
-          } else {
-            console.error('Token alınamadı!');
-            this.router.navigate(['/login']);
-          }
+          this.router.navigate(['/campaigns'])
+          this.toastr.success('Başarılı bir şekilde giriş gerçekleştirilmiştir.');
         },
-        error: (err) => console.error('Giriş başarısız!', err.message)
+        error: (err) => {
+          console.error('Giriş başarısız!');
+          this.toastr.error('Giriş başarısız! Hatalı kullanıcı adı veya şifre.');
+        }
       });
     }
   }

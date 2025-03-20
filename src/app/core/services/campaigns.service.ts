@@ -1,30 +1,51 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { Campaign } from '../types/campaign.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CampaignsService {
+  private campaigns = signal<Campaign[]>(this.loadFromLocalStorage());
+
   constructor() { }
 
-  campaigns!: Campaign[];
+  private loadFromLocalStorage(): Campaign[] {
+    return JSON.parse(localStorage.getItem('campaigns') || '[]');
+  }
 
-  setCampaigns(campaignObject: Campaign) {
-    this.campaigns = [];
-    const storedCampaigns = localStorage.getItem('campaigns');
-    if (storedCampaigns) {
-      this.campaigns = JSON.parse(storedCampaigns);
-      this.campaigns = [...this.campaigns, campaignObject];
-    } else {
-      this.campaigns = [campaignObject];
-    }
-    campaignObject.id = this.campaigns.length;
-    localStorage.setItem('campaigns', JSON.stringify(this.campaigns));
+  private saveToLocalStorage(): void {
+    localStorage.setItem('campaigns', JSON.stringify(this.campaigns()));
+  }
+
+  setCampaign(campaignObject: Campaign): void {
+    const updatedCampaigns = [...this.campaigns(), { ...campaignObject, id: this.campaigns().length + 1 }];
+    this.campaigns.set(updatedCampaigns);
+    this.saveToLocalStorage();
   }
 
   getCampaigns(): Campaign[] {
-    const data = localStorage.getItem('campaigns') ?? '[]';
-    this.campaigns = JSON.parse(data);
-    return this.campaigns;
+    return this.campaigns();
+  }
+
+  updateCampaign(updatedCampaign: Campaign) {
+    this.campaigns.update(campaigns =>
+      campaigns.map(campaign =>
+        campaign.id === updatedCampaign.id ? { ...campaign, ...updatedCampaign } : campaign
+      )
+    );
+    this.saveToLocalStorage();
+  }
+  deleteCampaign(id: number): void {
+    const updatedCampaigns = this.campaigns().filter(campaign => campaign.id !== id);
+    this.campaigns.set([...updatedCampaigns]); // Yeni referans ile güncelle
+    this.saveToLocalStorage();
+  }
+  updatePoint(id: number, newPoint: number) {
+    this.campaigns.update(campaigns =>
+      campaigns.map(campaign =>
+        campaign.id === id ? { ...campaign, point: newPoint } : campaign
+      )
+    );
+    this.saveToLocalStorage();
   }
 }
