@@ -37,7 +37,7 @@ export class CampaignsService {
   }
   deleteCampaign(id: number): void {
     const updatedCampaigns = this.campaigns().filter(campaign => campaign.id !== id);
-    this.campaigns.set([...updatedCampaigns]); // Yeni referans ile güncelle
+    this.campaigns.set([...updatedCampaigns]);
     this.saveToLocalStorage();
   }
   updatePoint(id: number, newPoint: number) {

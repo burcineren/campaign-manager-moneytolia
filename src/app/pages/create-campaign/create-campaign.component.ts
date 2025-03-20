@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CampaignsService } from '../../core/services/campaigns.service';
@@ -13,17 +13,16 @@ import { ToastrService } from 'ngx-toastr';
   changeDetection: ChangeDetectionStrategy.OnPush,
 
 })
-export class CreateCampaignComponent {
-  campaignForm: FormGroup;
+export class CreateCampaignComponent implements OnInit {
+  campaignForm!: FormGroup;
   showDialog: boolean = false;
-  message: string = '';
+  message: string = 'Kampanya başarılı bir şekilde eklenmiştir!';
+  private readonly fb = inject(FormBuilder);
+  private readonly campaignsService = inject(CampaignsService);
+  private readonly router = inject(Router);
+  private readonly toastr = inject(ToastrService);
 
-  constructor(
-    private fb: FormBuilder,
-    private campaignsService: CampaignsService,
-    private router: Router,
-    private toastr: ToastrService
-  ) {
+  ngOnInit(): void {
     this.campaignForm = this.fb.group({
       title: ['', Validators.required],
       description: ['', Validators.required]
@@ -47,7 +46,6 @@ export class CreateCampaignComponent {
       };
       this.campaignsService.setCampaign(campaign);
       this.clearForm();
-      this.message = 'Kampanya başarılı bir şekilde eklenmiştir!';
       this.toastr.success('Kampanya başarılı bir şekilde eklenmiştir!!', 'Kampanya');
       this.showDialog = true;
       this.router.navigate(['campaigns'])
