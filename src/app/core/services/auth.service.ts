@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, map, of, tap, throwError } from 'rxjs';
-import { AuthStateModel } from '../states/auth-state/auth.type';
 
 @Injectable({
   providedIn: 'root'

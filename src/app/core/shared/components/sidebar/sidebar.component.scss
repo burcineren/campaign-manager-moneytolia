@@ -31,10 +31,6 @@ $margin-right: 80px;
         color: $sidebar-color;
         text-decoration: none;
         transition: color 0.3s;
-
-        &:hover {
-          color: lighten($sidebar-color, 20%);
-        }
       }
     }
   }

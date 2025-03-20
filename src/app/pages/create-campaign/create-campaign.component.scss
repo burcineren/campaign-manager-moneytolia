@@ -41,7 +41,6 @@ $padding: 20px;
     display: block;
     text-align: left;
     margin-bottom: 5px;
-    color: darken($text-color, 20%);
   }
 
   input {
@@ -86,10 +85,6 @@ button[type="submit"] {
   cursor: pointer;
   transition: background-color 0.3s;
 
-  &:hover {
-    background-color: darken($primary-color, 10%);
-  }
-
   &:disabled {
     background-color: #ccc;
     cursor: not-allowed;
@@ -103,10 +98,6 @@ button[type="submit"] {
   color: $primary-color;
   text-decoration: none;
   transition: color 0.3s;
-
-  &:hover {
-    color: darken($primary-color, 10%);
-  }
 }
 
 @media (max-width: 480px) {
