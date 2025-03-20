@@ -45,7 +45,7 @@ export class CreateCampaignComponent {
         point: 0,
         datePublished: currentDate
       };
-      this.campaignsService.setCampaigns(campaign);
+      this.campaignsService.setCampaign(campaign);
       this.clearForm();
       this.message = 'Kampanya başarılı bir şekilde eklenmiştir!';
       this.toastr.success('Kampanya başarılı bir şekilde eklenmiştir!!', 'Kampanya');

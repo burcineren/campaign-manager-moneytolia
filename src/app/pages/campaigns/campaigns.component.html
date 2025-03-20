@@ -1,71 +1,73 @@
 <div class="mb-20 alert alert-primary">
-  {{ campaigns.length }} kampanya bulundu.
+  {{ campaigns().length }} kampanya bulundu.
 </div>
-<div class="container" *ngIf="campaigns.length > 0">
-  <ng-template #campaignList>
-    <div *ngFor="let campaign of campaigns" class="card">
-      <div class="card-header">
-        <h3>{{ campaign.title }}</h3>
-        <div class="actions">
-          <button class="btn update" (click)="openModal(campaign)">
-            Güncelle
-          </button>
-          <button class="btn delete" (click)="deleteCampaign(campaign.id)">
-            Sil
-          </button>
-        </div>
-      </div>
-      <div class="card-body">
-        <p>{{ campaign.description }}</p>
-      </div>
-      <div class="card-footer">
-        <div class="counter">
-          <div class="count">{{ campaign.point }}</div>
-          <div class="buttons">
-            <button class="circle-btn" (click)="increment(campaign)">+</button>
-            <button class="circle-btn" (click)="decrement(campaign)">-</button>
-          </div>
-        </div>
-        <div class="date">{{ campaign.datePublished }}</div>
+
+@if (campaigns().length > 0) {
+<div class="container">
+  @for (campaign of campaigns(); track campaign.id) {
+  <div class="card">
+    <div class="card-header">
+      <h3>{{ campaign.title }}</h3>
+      <div class="actions">
+        <button class="btn update" (click)="openModal(campaign)">
+          Güncelle
+        </button>
+        <button class="btn delete" (click)="deleteCampaign(campaign.id)">
+          Sil
+        </button>
       </div>
     </div>
-  </ng-template>
-  <ng-template [ngTemplateOutlet]="campaignList"></ng-template>
-
-  <div *ngIf="showModal">
-    <div id="overlay" (click)="showModal = false"></div>
-    <div id="campaign-modal">
-      <div class="header">Güncelleme Ekranı</div>
-      <div class="content">
-        <form #modalForm="ngForm" (ngSubmit)="updateCampaign(modalForm)">
-          <div class="mb-10">
-            <label for="title">Başlık</label>
-            <input
-              type="text"
-              name="title"
-              id="title"
-              [(ngModel)]="values.title"
-              ngModel
-              required
-            />
-          </div>
-          <div>
-            <label for="description">Açıklama</label>
-            <textarea
-              id="description"
-              rows="5"
-              name="description"
-              ngModel
-              [(ngModel)]="values.description"
-              required
-            ></textarea>
-          </div>
-          <div class="buttons">
-            <button type="submit">Güncelle</button>
-            <button type="button" (click)="closeModal()">Kapat</button>
-          </div>
-        </form>
+    <div class="card-body">
+      <p>{{ campaign.description }}</p>
+    </div>
+    <div class="card-footer">
+      <div class="counter">
+        <div class="count">{{ campaign.point }}</div>
+        <div class="buttons">
+          <button class="circle-btn" (click)="increment(campaign)">+</button>
+          <button class="circle-btn" (click)="decrement(campaign)">-</button>
+        </div>
       </div>
+      <div class="date">{{ campaign.datePublished }}</div>
+    </div>
+  </div>
+  }
+</div>
+} @if (showModal()) {
+<div>
+  <div id="overlay" (click)="closeModal()"></div>
+  <div id="campaign-modal">
+    <div class="header">Güncelleme Ekranı</div>
+    <div class="content">
+      <form #modalForm="ngForm" (ngSubmit)="updateCampaign(modalForm)">
+        <div class="mb-10">
+          <label for="title">Başlık</label>
+          <input
+            type="text"
+            name="title"
+            id="title"
+            [(ngModel)]="values().title"
+            ngModel
+            required
+          />
+        </div>
+        <div>
+          <label for="description">Açıklama</label>
+          <textarea
+            id="description"
+            rows="5"
+            name="description"
+            ngModel
+            [(ngModel)]="values().description"
+            required
+          ></textarea>
+        </div>
+        <div class="buttons">
+          <button type="submit">Güncelle</button>
+          <button type="button" (click)="closeModal()">Kapat</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>
+}

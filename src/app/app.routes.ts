@@ -1,6 +1,5 @@
 import { Routes } from '@angular/router';
 import { AuthGuard } from './core/guards/auth.guard';
-import { CreateCampaignComponent } from './pages/create-campaign/create-campaign.component';
 
 
 export const routes: Routes = [
